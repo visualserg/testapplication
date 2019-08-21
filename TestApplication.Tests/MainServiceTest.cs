@@ -63,14 +63,5 @@ namespace TestApplication.Tests
 
             Assert.All(result, item => Assert.Contains(input, item.Text));
         }
-
-
-    }
-    public static class Utils
-    {
-        public static bool IsAny<T>(this IEnumerable<T> data)
-        {
-            return data != null && data.Any();
-        }
     }
 }
