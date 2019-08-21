@@ -22,7 +22,7 @@ namespace TestApplication.Controllers
         }
 
         /// <summary>
-        /// Вывод посказок
+        /// Вывод подсказок
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>

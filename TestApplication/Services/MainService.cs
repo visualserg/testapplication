@@ -18,6 +18,8 @@ namespace TestApplication.Services
         /// DI
         /// </summary>
         /// <param name="mainConfig"></param>
+        /// <param name="suggestRepository"></param>
+        /// <param name="logger"></param>
         public MainService(IOptions<MainConfig> mainConfig, IRepository<Suggest> suggestRepository, ILogger<MainService> logger)
         {
             _mainConfig = mainConfig.Value;
