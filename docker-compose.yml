@@ -1,0 +1,50 @@
+version: '3.4'
+
+services:
+  testapplication:
+    image: ${DOCKER_REGISTRY-}testapplication
+    build:
+      context: .
+      dockerfile: TestApplication/Dockerfile
+    depends_on: 
+      - psqlhost
+    networks:
+      - servicenetwork
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  psqlhost:
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: "123456789"
+    volumes:
+      - postgres_database:/var/lib/postgresql/data
+      - pgadmin_backup:/usr/pgbackup
+    networks:
+      - servicenetwork
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "puser@pgadmin.org"
+      PGADMIN_DEFAULT_PASSWORD: "987654321"
+    volumes:
+      - pgadmin_backup:/var/lib/pgadmin/storage/puser_pgadmin.org
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - 8085:80
+    networks:
+      - servicenetwork
+    depends_on:
+      - psqlhost
+
+networks:
+  servicenetwork:
+
+volumes:
+  postgres_database:
+  pgadmin_backup:
+  pgadmin_data:

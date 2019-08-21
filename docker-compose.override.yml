@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  testapplication:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=58045
+    ports:
+      - "58044:80"
+      - "58045:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    environment:
+      - MainConfig:DbSuggestConnectionString=User ID=postgres;Password=123456789;Host=psqlhost;Port=5432;Database=suggestdb;Pooling=true;
